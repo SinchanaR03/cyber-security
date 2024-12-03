@@ -1,0 +1,46 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+    char text[100];
+    int key,i;
+    char choice;
+
+    cout<<"Do you want to (E)ncrypt or (D)ecrypt the text? ";
+    cin>>choice;
+
+    cout<<"enter the text: ";
+    cin.ignore();
+    cin.getline(text,100);
+
+    cout<<"enter key value (1-25): ";
+    cin>>key;
+
+    key=key%26;
+
+    for(i=0;text[i]!='\0';i++){
+        char c=text[i];
+        if(c>='a' && c<='z'){
+        if(choice=='E' || choice=='e'){
+            c = (c - 'a' + key ) % 26 + 'a';
+        }
+        else if(choice=='D' || choice=='d'){
+            c = (c - 'a' - key + 26 ) % 26 +'a';
+        }
+    }
+
+    else if(c>='A' && c<='Z'){
+        if(choice=='E' || choice=='e'){
+            c = (c - 'A' + key ) % 26 + 'A';
+        }
+        else if(choice=='D' || choice=='d'){
+            c = (c - 'A' - key + 26 ) % 26 +'A';
+        }
+    }
+     
+     text[i] = c;
+}
+
+cout<<"the encrypted/decrypted message is: " << text <<endl;
+return 0;
+}
