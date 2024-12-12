@@ -1,0 +1,62 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+void encrypt(vector<vector<int>>& image, int key){
+    for(auto& row : image){
+        for(auto& pixel: row){
+            pixel=(pixel+key)%256;
+        }
+    }
+}
+
+void decrypt(vector<vector<int>>& image, int key){
+    for(auto& row : image){
+        for(auto& pixel: row){
+            pixel=(pixel-key+256)%256;
+        }
+    }
+}
+
+void display(vector<vector<int>>& image){
+    for(auto& row:image){
+        for(auto& pixel:row){
+            cout<<pixel<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+int main(){
+    int rows,columns,key;
+    cout<<"enter the number of rows: ";
+    cin>>rows;
+    cout<<"enter the number of columns: ";
+    cin>>columns;
+    
+    vector<vector<int>> image(rows,vector<int>(columns));
+    
+    cout<<"enter the pixel values: ";
+    for(int i=0;i<rows;++i){
+        for(int j=0;j<columns;++j){
+            cin>>image[i][j];
+        }
+    }
+    
+    cout<<"enter the key value: ";
+    cin>>key;
+    
+    cout<<"\noriginal image is: \n";
+    display(image);
+    
+    encrypt(image,key);
+    cout<<"\nencrypted image: \n";
+    display(image);
+    
+    decrypt(image,key);
+    cout<<"\ndecrypted image: \n";
+    display(image);
+    
+    return 0;
+    
+}
