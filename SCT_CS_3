@@ -1,0 +1,70 @@
+#include<iostream>
+#include<string>
+#include<cctype>
+using namespace std;
+
+bool containsUpperCase(const string& password){
+    for(char ch:password){
+        if(isupper(ch)) 
+        return true;
+    }
+    return false;
+}
+
+bool containsLowerCase(const string& password){
+    for(char ch:password){
+        if(islower(ch)) 
+        return true;
+    }
+    return false;
+}
+
+bool containsDigit(const string& password){
+    for(char ch:password){
+        if(isdigit(ch)) 
+        return true;
+    }
+    return false;
+}
+
+bool containsSpecial(const string& password){
+    for(char ch:password){
+        if(ispunct(ch)) 
+        return true;
+    }
+    return false;
+}
+
+bool StrongPassword(const string& password){
+    return password.length()>=8 &&
+    containsUpperCase(password) &&
+    containsLowerCase(password) &&
+    containsDigit(password) &&
+    containsSpecial(password);
+}
+
+int main(){
+    string password;
+    
+    cout << "Please enter a strong password.\n";
+    cout << "Your password must meet the following criteria:\n";
+    cout << "1. At least 8 characters long\n";
+    cout << "2. Contains at least one uppercase letter\n";
+    cout << "3. Contains at least one lowercase letter\n";
+    cout << "4. Contains at least one digit\n";
+    cout << "5. Contains at least one special character (e.g., @, #, $, etc.)\n";
+    cout<<"-------------------------------------------------------------------\n";
+    
+    while(true){
+        cout<<"Enter your password: \n";
+        cin>>password;
+        
+        if(StrongPassword(password)){
+            cout<<"Password is strong!\n";
+            break;
+        } else{
+            cout<<"Password not strong.Try again\n";
+        }
+    }
+    return 0;
+}
